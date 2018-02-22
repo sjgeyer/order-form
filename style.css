@@ -1,0 +1,21 @@
+body {
+  width: 960px;
+  margin: auto;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+figure {
+  display: inline-block;
+  width: 300px;
+}
+
+a {
+  text-decoration: none;
+}
+
+header, footer {
+  background-color: #aaa;
+  height: 30px;
+  margin: 30px auto;
+}
