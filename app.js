@@ -12,7 +12,7 @@ var cartButton = document.getElementById('go-to-cart');
 
 //cart
 var orderBox = document.getElementById('order');
-var removeButton = document.getElementById('remove');
+var removeButton = document.getElementsByClassName('remove');
 
 
 //ORIGINAL PRODUCT CONSTRUCTOR AND INSTANCES
@@ -78,6 +78,7 @@ function renderCart() {
     var figureEl = document.createElement('figure');
     var figCapEl = document.createElement('figcaption');
     var imgEl = document.createElement('img');
+    var buttonEl = document.createElement('button');
     orderBox.appendChild(figureEl);
     figureEl.appendChild(imgEl);
     figureEl.appendChild(figCapEl);
@@ -85,12 +86,14 @@ function renderCart() {
     imgEl.alt = allChoices[k].name;
     imgEl.title = allChoices[k].name;
     figCapEl.textContent = allChoices[k].name;
-  }
-  for (var j = 0; j < allChoices.length; j++) {
-    var optionEl = document.createElement('option');
-    optionEl.textContent = allChoices[j].name;
-    optionEl.value = allChoices[j].index;
-    selectBox.appendChild(optionEl);
+    buttonEl = document.createElement('button');
+    buttonEl.textContent = 'Remove Item';
+    buttonEl.classList.add('remove');
+    buttonEl.id = k;
+    figureEl.appendChild(buttonEl);
+    for (var i = 0; i < removeButton.length; i++){
+      removeButton[i].addEventListener('click', removeSelection);
+    }
   }
 }
 
@@ -106,8 +109,6 @@ if (orderBox) {
   var selectionsRetrieved = localStorage.getItem('selectionsToLS', JSON.stringify(allChoices));
   allChoices = JSON.parse(selectionsRetrieved);
   renderCart();
-  document.addEventListener('DOMContentLoaded', changeSelection);
-  removeButton.addEventListener('click', );
 }
 
 //EVENT LISTENER FUNCTIONS
@@ -124,5 +125,13 @@ function addSelection() {
 }
 
 function storeSelections() {
+  localStorage.setItem('selectionsToLS', JSON.stringify(allChoices));
+}
+
+function removeSelection(event) {
+  var selectionValue = event.target.id;
+  allChoices.splice(selectionValue, 1);
+  orderBox.textContent = '';
+  renderCart();
   localStorage.setItem('selectionsToLS', JSON.stringify(allChoices));
 }
