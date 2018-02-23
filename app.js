@@ -4,15 +4,21 @@
 var allProducts = [];
 var allChoices = [];
 var selectBox = document.getElementById('select');
+var selectionsRetrieved = localStorage.getItem('selectionsToLS', JSON.stringify(allChoices));
+var infoLabels = ['Name: ', 'Address: ', 'City: ', 'State: ', 'Zip Code: ', 'Phone Number: ']
+var info = [];
+var infoRetrieved = localStorage.getItem('infoToLS', JSON.stringify(info));
 
 //index
 var imageSec = document.getElementById('pictures');
 var addButton = document.getElementById('add');
 var cartButton = document.getElementById('go-to-cart');
+var saveAddress = document.getElementById('address');
 
 //cart
 var orderBox = document.getElementById('order');
 var removeButton = document.getElementsByClassName('remove');
+var infoTable = document.getElementById('info-table');
 
 
 //ORIGINAL PRODUCT CONSTRUCTOR AND INSTANCES
@@ -44,10 +50,11 @@ new Product('Self-filling watering can', 'img/water-can.jpg');
 new Product('Sure-to-spill wine glass', 'img/wine-glass.jpg');
 
 //SELECTION CONSTRUCTOR
-function SelectedProduct(index) {
+function SelectedProduct(index, quantity) {
   this.index = index;
   this.name = allProducts[index].name;
   this.filepath = allProducts[index].filepath;
+  this.quantity = quantity;
   allChoices.push(this);
 }
 
@@ -74,6 +81,13 @@ function renderIndex() {
 }
 
 function renderCart() {
+  for (var i = 0; i < info.length; i++) {
+    var trEl = document.createElement('tr');
+    var tdEl = document.createElement('td');
+    tdEl.textContent = infoLabels[i] + info[i];
+    trEl.appendChild(tdEl);
+    infoTable.appendChild(trEl);
+  }
   for (var k = 0; k < allChoices.length; k++) {
     var figureEl = document.createElement('figure');
     var figCapEl = document.createElement('figcaption');
@@ -85,7 +99,7 @@ function renderCart() {
     imgEl.src = allChoices[k].filepath;
     imgEl.alt = allChoices[k].name;
     imgEl.title = allChoices[k].name;
-    figCapEl.textContent = allChoices[k].name;
+    figCapEl.textContent = allChoices[k].name + ': ' + allChoices[k].quantity;
     buttonEl = document.createElement('button');
     buttonEl.textContent = 'Remove Item';
     buttonEl.classList.add('remove');
@@ -99,15 +113,21 @@ function renderCart() {
 
 //INDEX.HTML PAGE ++++++++++++++++++++++++++++++++++++++++++++++++++
 if (imageSec) {
+  if (localStorage.selectionsToLS) {
+    allChoices = JSON.parse(selectionsRetrieved);
+    info = JSON.parse(infoRetrieved);
+  }
   renderIndex();
   document.addEventListener('DOMContentLoaded', changeSelection);
   addButton.addEventListener('click', addSelection);
   cartButton.addEventListener('click', storeSelections);
+  saveAddress.addEventListener('submit', saveForm);
 }
 
+//CART.HTML PAGE ++++++++++++++++++++++++++++++++++++++++++++++++++
 if (orderBox) {
-  var selectionsRetrieved = localStorage.getItem('selectionsToLS', JSON.stringify(allChoices));
   allChoices = JSON.parse(selectionsRetrieved);
+  info = JSON.parse(infoRetrieved);
   renderCart();
 }
 
@@ -120,12 +140,17 @@ function changeSelection() {
 
 function addSelection() {
   var index = parseInt(localStorage.getItem('selection'));
-  new SelectedProduct(index, allProducts[index].filepath);
-  console.log(allChoices);
+  var input = document.getElementById('quantity').value;
+  new SelectedProduct(index, input);
 }
 
 function storeSelections() {
   localStorage.setItem('selectionsToLS', JSON.stringify(allChoices));
+}
+
+function saveForm(event) {
+  info = [event.target.name.value, event.target.address.value, event.target.city.value, event.target.state.value, event.target.zip.value, event.target.phone.value];
+  localStorage.setItem('infoToLS', JSON.stringify(info));
 }
 
 function removeSelection(event) {

@@ -1,17 +1,24 @@
 body {
-  width: 960px;
+  width: 1000px;
   margin: auto;
-  text-align: center;
   font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
 }
 
 figure {
   display: inline-block;
-  width: 200px;
+  width: 500px;
+  margin: 30px auto;
+  text-align: center;
 }
 
 img {
-  width: 200px;
+  width: 300px;
+  border: 10px solid black;
+  border-radius: 10px;
 }
 
 a {
@@ -22,4 +29,47 @@ header, footer {
   background-color: #aaa;
   height: 30px;
   margin: 30px auto;
+}
+
+label {
+  font-size: 12px;
+}
+
+#quantity {
+  width: 30px;
+}
+
+form {
+  width: 700;
+  text-align: left;
+  margin: 20px;
+}
+
+form input {
+  margin: 10px;
+}
+
+table {
+  margin-left: 50px;
+  text-align: left;
+}
+
+#buttons-all {
+  padding: 10px;
+  margin: 10px;
+}
+
+button {
+  height: 30px;
+  margin-left: 20px;
+  background-color: black;
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
+p {
+  line-height: 20px;
 }

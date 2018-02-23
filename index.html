@@ -12,15 +12,48 @@
 <body>
   <header></header>
   <h1>BusMall Order Form</h1>
-  <p>Please select the items you would like to purchase from the BusMall catalog:</p>
+  <p>Thank you for visiting BusMall! Below you will find all of the products that we currently carry. Please follow the below instructions: </br></br>
+    1. Fill out your contact information in the form below and submit it.</br>
+    2. Select an item and the quantity and add that item to your cart.</br>
+    3. Once you have made all your selections, click the 'Go to Cart' button to see all the items you have selected!
+  </p>
 
-  <select name="select" id="select"></select>
-  <button id="add">Add to Order</button>
-  <button id="go-to-cart"><a href ="cart.html">Go to Cart</a></button>
+  <form id="address">
+    <fieldset>
+      <legend>Enter Info:</legend>
+      
+      <label for="name">Name: </label>
+      <input name="name" type="text">
+      
+      <label for="address">Address: </label>
+      <input name="address" type="text">
+
+      <label for="city">City: </label>
+      <input name="city" type="text">
+
+      <label for="state">State: </label>
+      <input name="state" type="text"> </br>
+
+      <label for="zip">Zip Code: </label>
+      <input name="zip" type="text">
+
+      <label for="phone">Phone Number: </label>
+      <input name="phone" type="text">
+      <button type="submit">Save Info</button>
+    </fieldset>
+  </form>
+  
+  <section id="buttons-all">
+    <select name="select" id="select"></select>
+    <label for="input">Quantity:</label>
+    <input type="number" id="quantity" default="1">
+    <button id="add">Add to Order</button>
+    <button id="go-to-cart"><a href ="cart.html">Go to Cart</a></button>
+  </section>
 
   <h2>Products We Carry</h2>
-  <table id="pictures">
-  </table>
+  <section id="pictures">
+  </section>
   <footer></footer>
 
   <script src="app.js"></script>
