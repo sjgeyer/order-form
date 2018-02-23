@@ -1,11 +1,13 @@
 body {
   width: 1000px;
-  margin: auto;
+  margin: 30px auto;
   font-family: sans-serif;
 }
 
 h1 {
   text-align: center;
+  font-family: 'Sigmar One', cursive;
+  font-size: 50px;
 }
 
 figure {
@@ -16,8 +18,8 @@ figure {
 }
 
 img {
-  width: 300px;
-  border: 10px solid black;
+  height: 240px;
+  border: 10px solid #63a1fd;
   border-radius: 10px;
 }
 
@@ -50,8 +52,24 @@ form input {
 }
 
 table {
-  margin-left: 50px;
+  margin: 0px;
+  padding: 5px;
   text-align: left;
+  border: 1px solid black;
+  float: right;
+}
+
+h2 {
+  margin: 0px;
+}
+
+td {
+  padding: 5px;
+}
+
+td:first-child {
+  font-weight: bold;
+  text-align: right;
 }
 
 #buttons-all {
@@ -72,4 +90,31 @@ a:visited {
 
 p {
   line-height: 20px;
+}
+
+figcaption{
+  margin-bottom: 20px;
+}
+
+#top {
+  width: 1000px;
+  height: 200px;
+}
+
+#left {
+  float: left;
+  width: 600px;
+}
+
+#left button {
+  float: right;
+}
+
+#button {
+  height: 40px;
+}
+
+#order-submit {
+  float: right;
+  margin-bottom: 10px;
 }

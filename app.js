@@ -5,20 +5,20 @@ var allProducts = [];
 var allChoices = [];
 var selectBox = document.getElementById('select');
 var selectionsRetrieved = localStorage.getItem('selectionsToLS', JSON.stringify(allChoices));
-var infoLabels = ['Name: ', 'Address: ', 'City: ', 'State: ', 'Zip Code: ', 'Phone Number: ']
+var infoLabels = ['Name', 'Address', 'City', 'State', 'Zip Code', 'Phone Number'];
 var info = [];
 var infoRetrieved = localStorage.getItem('infoToLS', JSON.stringify(info));
 
 //index
 var imageSec = document.getElementById('pictures');
 var addButton = document.getElementById('add');
-var cartButton = document.getElementById('go-to-cart');
 var saveAddress = document.getElementById('address');
 
 //cart
 var orderBox = document.getElementById('order');
 var removeButton = document.getElementsByClassName('remove');
 var infoTable = document.getElementById('info-table');
+var submitOrder = document.getElementById('order-submit');
 
 
 //ORIGINAL PRODUCT CONSTRUCTOR AND INSTANCES
@@ -84,7 +84,10 @@ function renderCart() {
   for (var i = 0; i < info.length; i++) {
     var trEl = document.createElement('tr');
     var tdEl = document.createElement('td');
-    tdEl.textContent = infoLabels[i] + info[i];
+    tdEl.textContent = infoLabels[i];
+    trEl.appendChild(tdEl);
+    tdEl = document.createElement('td');
+    tdEl.textContent = info[i];
     trEl.appendChild(tdEl);
     infoTable.appendChild(trEl);
   }
@@ -105,8 +108,8 @@ function renderCart() {
     buttonEl.classList.add('remove');
     buttonEl.id = k;
     figureEl.appendChild(buttonEl);
-    for (var i = 0; i < removeButton.length; i++){
-      removeButton[i].addEventListener('click', removeSelection);
+    for (var j = 0; j < removeButton.length; j++){
+      removeButton[j].addEventListener('click', removeSelection);
     }
   }
 }
@@ -120,7 +123,6 @@ if (imageSec) {
   renderIndex();
   document.addEventListener('DOMContentLoaded', changeSelection);
   addButton.addEventListener('click', addSelection);
-  cartButton.addEventListener('click', storeSelections);
   saveAddress.addEventListener('submit', saveForm);
 }
 
@@ -129,6 +131,9 @@ if (orderBox) {
   allChoices = JSON.parse(selectionsRetrieved);
   info = JSON.parse(infoRetrieved);
   renderCart();
+  submitOrder.addEventListener('click', function() {
+    alert('Order submitted! (Not really though)');
+  });
 }
 
 //EVENT LISTENER FUNCTIONS
@@ -142,10 +147,8 @@ function addSelection() {
   var index = parseInt(localStorage.getItem('selection'));
   var input = document.getElementById('quantity').value;
   new SelectedProduct(index, input);
-}
-
-function storeSelections() {
   localStorage.setItem('selectionsToLS', JSON.stringify(allChoices));
+  document.getElementById('quantity').value = '';
 }
 
 function saveForm(event) {
@@ -157,6 +160,7 @@ function removeSelection(event) {
   var selectionValue = event.target.id;
   allChoices.splice(selectionValue, 1);
   orderBox.textContent = '';
+  infoTable.textContent= '';
   renderCart();
   localStorage.setItem('selectionsToLS', JSON.stringify(allChoices));
 }
